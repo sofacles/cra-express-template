@@ -1,14 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import BrowsePaint from './components/PaintChips';
+import PostPaint from './components/PostPaint';
 import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Route exact path="/" component={BrowsePaint} />
+        <Switch>
+          <Route exact path="/" component={BrowsePaint} />
+          <Route exact path="/postPaint" component={PostPaint} />
+        </Switch>
       </div>
     </Router>
   );

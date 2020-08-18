@@ -12,3 +12,4 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(cookieParser());
 
 app.get('/api/paints/', paintChipsRoute.getPaints);
+app.post('/api/paint/', paintChipsRoute.postPaint);

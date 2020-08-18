@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BrowsePaint = () => {
   const [paintChips, setPaintChips] = useState({
@@ -13,6 +14,7 @@ const BrowsePaint = () => {
       },
     ],
   });
+  const [isLoading, setIsLoading] = useState(true);
   let tableRows = paintChips.paintChips.map((chip) => {
     return (
       <tr key={chip._id}>
@@ -25,28 +27,33 @@ const BrowsePaint = () => {
 
   useEffect(() => {
     fetch(`/api/paints`, {
-        headers: {
-        'Content-Type': 'application/json'
-      }})
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then((x) => x.text())
       .then((t) => {
+        setIsLoading(false);
         setPaintChips({ paintChips: JSON.parse(t) });
       });
   }, []);
 
-  return (
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <div>
       <h1>Available Paint</h1>
       <table>
         <thead>
           <tr>
-            <td>brand</td>
-            <td>name</td>
-            <td>quantity</td>
+            <td>Brand</td>
+            <td>Name</td>
+            <td>Quantity</td>
           </tr>
         </thead>
         <tbody>{tableRows}</tbody>
       </table>
+      <Link to="/postPaint">Post Paint</Link>
     </div>
   );
 };
